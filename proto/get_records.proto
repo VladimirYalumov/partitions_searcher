@@ -1,0 +1,32 @@
+// go get -u google.golang.org/grpc
+// go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
+// go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+// protoc --go_out=./proto --go-grpc_out=./proto proto/get_records.proto
+// go mod vendor
+syntax = "proto3";
+
+package partitions_searcher;
+
+option go_package = "./partitions_searcher";
+
+message Record {
+  int64 id = 1;
+  string title = 2;
+  string description = 3;
+  int64 created_at = 4;
+}
+
+message GetRecordsRequest {
+  repeated string partitionsArray = 1;
+  string sortField = 2;
+  bool sortDirection = 3;
+  string query = 4;
+}
+
+message GetRecordsResponse {
+  repeated Record record = 1;
+}
+
+service GetRecordsService {
+  rpc Get (GetRecordsRequest) returns (GetRecordsResponse) {}
+}
