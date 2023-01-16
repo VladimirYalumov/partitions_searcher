@@ -21,10 +21,11 @@ message GetRecordsRequest {
   string sortField = 2;
   bool sortDirection = 3;
   string query = 4;
+  string orderBy = 5;
 }
 
 message GetRecordsResponse {
-  repeated Record record = 1;
+  repeated Record records = 1;
 }
 
 service GetRecordsService {

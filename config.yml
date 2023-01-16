@@ -3,3 +3,4 @@ db_name: "partitions_db"
 db_user: "user"
 db_password: "qwerty"
 db_port: "5432"
+start_year: 

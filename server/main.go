@@ -6,6 +6,8 @@ import (
 	"log"
 	"net"
 	ps "partitions_searcher/proto/partitions_searcher"
+	"partitions_searcher/server/services"
+	"partitions_searcher/settings"
 )
 
 type GetRecordsServiceServer struct {
@@ -18,12 +20,13 @@ func (s *GetRecordsServiceServer) Get(ctx context.Context,
 	var err error
 	response := new(ps.GetRecordsResponse)
 
-	response.Record = make([]*ps.Record, 10)
+	response.Records, err = services.GetRecordsInPartitions(req)
 
 	return response, err
 }
 
 func main() {
+	settings.Init("config.yml")
 	server := grpc.NewServer()
 
 	instance := new(GetRecordsServiceServer)
