@@ -12,10 +12,6 @@ type Task struct {
 	CreatedAt   time.Time
 }
 
-func (model *Task) tableName() string {
-	return "tasks"
-}
-
 func (model *Task) Create() error {
 	err := settings.Db.Create(&model)
 	if err.Error != nil {

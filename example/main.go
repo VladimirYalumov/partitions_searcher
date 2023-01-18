@@ -14,7 +14,7 @@ func main() {
 	id := ""
 	for _, task := range tasks {
 		id = strconv.Itoa(int(task.Id))
-		fmt.Println("ID: " + id + "Title: " + task.Title + "Description: " + task.Description)
+		fmt.Println("ID: " + id + " Title: " + task.Title + " Description: " + task.Description)
 	}
 }
 
@@ -40,10 +40,8 @@ func getTasks() (task []models.Task, err error) {
 		context.Background(),
 		&ps.GetRecordsRequest{
 			PartitionsArray: partitions,
-			SortField:       "id",
 			SortDirection:   true,
-			Query:           " where description = 'test description';",
-			OrderBy:         "id",
+			Query:           "where description = 'test description' order by id;",
 		},
 	)
 

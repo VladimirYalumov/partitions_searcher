@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	"partitions_searcher/proto/partitions_searcher"
 )
 
 var Db *gorm.DB
@@ -24,9 +23,4 @@ func initDB(host string, user string, password string, dbName string, port strin
 		panic(err)
 	}
 	Db.AutoMigrate()
-}
-
-func GetEventByPartition(partition string, query string) (records []partitions_searcher.Record, err error) {
-	err = Db.Raw(fmt.Sprintf("select id, title, description from %s as e%s", partition, query)).Scan(&records).Error
-	return
 }

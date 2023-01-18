@@ -17,12 +17,13 @@ type GetRecordsServiceServer struct {
 func (s *GetRecordsServiceServer) Get(ctx context.Context,
 	req *ps.GetRecordsRequest) (*ps.GetRecordsResponse, error) {
 
-	var err error
 	response := new(ps.GetRecordsResponse)
 
-	response.Records, err = services.GetRecordsInPartitions(req)
+	service := services.CoreService{SortDirection: req.SortDirection}
 
-	return response, err
+	response.Records = service.GetRecordsInPartitions(req)
+
+	return response, service.Error
 }
 
 func main() {
